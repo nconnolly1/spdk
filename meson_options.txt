@@ -1,0 +1,139 @@
+# Please keep these options sorted alphabetically.
+
+## HACK - how to handle cross build (target-arch / machine)
+## Sort into alpha order / simpify?
+
+option('target-arch', type: 'string', value: 'native',
+  	description: 'set the target machine type')
+
+option('disable-examples', type: 'boolean', value: false,
+  	description: 'Disable building of examples')
+option('disable-tests', type: 'boolean', value: false,
+  	description: 'Disable building of functional tests')
+option('disable-unit-tests', type: 'boolean', value: false,
+  	description: 'Disable building of unit tests')
+
+option('enable-examples', type: 'boolean', value: false,
+  	description: 'Enable building of examples')
+option('enable-tests', type: 'boolean', value: false,
+  	description: 'Enable building of functional tests')
+option('enable-unit-tests', type: 'boolean', value: false,
+  	description: 'Enable building of unit tests')
+
+option('with-dpdk', type: 'string', value: 'undefined',
+	description: 'Use the given DPDK. Optionally, provide the path.')
+option('without-dpdk', type: 'boolean', value: false,
+	description: 'Do not link to the DPDK. This may disable features and components.')
+
+option('with-pmdk', type: 'string', value: 'undefined',
+	description: 'Build persistent memory bdev. Optionally, provide the path.')
+option('without-pmdk', type: 'boolean', value: false,
+	description: 'Do not build persistent memory bdev. This may disable features and components.')
+
+option('with-vpp', type: 'string', value: 'undefined',
+	description: 'Build VPP net module. Optionally, provide the path.')
+option('without-vpp', type: 'boolean', value: false,
+	description: 'Do not build VPP net module. This may disable features and components.')
+
+option('with-vtune', type: 'string', value: 'undefined',
+	description: 'Required to profile I/O under Intel VTune Amplifier XE.')
+option('without-vtune', type: 'boolean', value: false,
+	description: 'Do not build to profile I/O under Intel VTune Amplifier XE. This may disable features and components.')
+
+option('with-uring', type: 'string', value: 'undefined',
+	description: 'Build I/O uring bdev or socket module.')
+option('without-uring', type: 'boolean', value: false,
+	description: 'Do not build the I/O uring bdev or socket module. This may disable features and components.')
+
+option('with-fc', type: 'string', value: 'undefined',
+	description: 'Build FC transport for NVMf target. If an argument is provided, it is considered a directory containing libufc.a and fc_lld.h. Otherwise the regular system paths will be searched.')
+option('without-fc', type: 'boolean', value: false,
+	description: 'Do not build the FC transport for NVMf target. This may disable features and components.')
+
+option('with-ocf', type: 'string', value: 'undefined',
+	description: 'Build OCF library and bdev module. If argument is directory, interpret it as root of OCF repo. If argument is file, interpret it as compiled OCF lib. If no argument is specified, OCF git submodule is used by default.')
+option('without-ocf', type: 'boolean', value: false,
+	description: 'Do not build the OCF library and bdev module. This may disable features and components.')
+
+option('with-rdma', type: 'string', value: 'undefined',
+	description: 'Build RDMA transport for NVMf target and initiator. Accepts optional RDMA provider name. Can be "verbs" or "mlx5_dv". If no provider specified, "verbs" provider is used by default.')
+option('without-rdma', type: 'boolean', value: false,
+	description: 'Do not build RDMA transport for NVMf target and initiator. This may disable features and components.')
+
+option('with-fio', type: 'string', value: 'undefined',
+	description: 'Build fio_plugin. default: /usr/src/fio')
+option('without-fio', type: 'boolean', value: false,
+	description: 'Do not build fio_plugin.')
+
+option('with-env', type: 'string', value: 'undefined',
+	description: 'Use an alternate environment implementation instead of DPDK.')
+
+option('with-rbd', type: 'boolean', value: false,
+	description: 'Build Ceph RBD bdev module.')
+option('without-rbd', type: 'boolean', value: false,
+	description: 'Do build Ceph RBD bdev module. This may disable features and components.')
+
+option('with-iscsi-initiator', type: 'boolean', value: false,
+	description: 'Build with iscsi bdev module.')
+option('without-iscsi-initiator', type: 'boolean', value: false,
+	description: 'Do not build iscsi bdev module. This may disable features and components.')
+
+option('with-iscsi-initiator', type: 'boolean', value: false,
+	description: 'Build with iscsi bdev module.')
+option('without-iscsi-initiator', type: 'boolean', value: false,
+	description: 'Do not build iscsi bdev module. This may disable features and components.')
+
+option('with-crypto', type: 'boolean', value: false,
+	description: 'Build vbdev crypto module.')
+option('without-crypto', type: 'boolean', value: false,
+	description: 'Do not build vbdev crypto module. This may disable features and components.')
+
+option('with-vhost', type: 'boolean', value: false,
+	description: 'Build vhost target.')
+option('without-vhost', type: 'boolean', value: false,
+	description: 'Do not build vhost target. This may disable features and components.')
+
+option('with-virtio', type: 'boolean', value: false,
+	description: 'Build vhost initiator and virtio-pci bdev modules.')
+option('without-virtio', type: 'boolean', value: false,
+	description: 'Do not build vhost initiator and virtio-pci bdev modules. This may disable features and components.')
+
+option('with-internal-vhost-lib', type: 'boolean', value: false,
+	description: 'Use the internal copy of rte_vhost. By default, the upstream rte_vhost from DPDK will be used. No path required.')
+option('without-internal-vhost-lib', type: 'boolean', value: false,
+	description: 'Do not use the internal copy of rte_vhost. This may disable features and components.')
+
+option('with-reduce', type: 'boolean', value: false,
+	description: 'Build vbdev compression module.')
+option('without-reduce', type: 'boolean', value: false,
+	description: 'Do not build vbdev compression module. This may disable features and components.')
+
+option('with-igb-uio-driver', type: 'boolean', value: false,
+	description: 'Build DPDK\'s igb-uio driver. Required on some systems to use qat devices. This flag is effective only with the default dpdk submodule.')
+option('without-igb-uio-driver', type: 'boolean', value: false,
+	description: 'Do not build DPDK\'s igb-uio driver. This may disable features and components.')
+
+option('with-isal', type: 'boolean', value: false,
+	description: 'Build with ISA-L. Enabled by default on x86 and aarch64 architectures.')
+option('without-isal', type: 'boolean', value: false,
+	description: 'Do not build with ISA-L. This may disable features and components.')
+
+option('with-fuse', type: 'boolean', value: false,
+	description: 'Build FUSE components for mounting a blobfs filesystem.')
+option('without-fuse', type: 'boolean', value: false,
+	description: 'Do not build FUSE. This may disable features and components.')
+
+option('with-nvme-cuse', type: 'boolean', value: false,
+	description: 'Build NVMe driver with support for CUSE-based character devices.')
+option('without-nvme-cuse', type: 'boolean', value: false,
+	description: 'Do not build NVMe driver with support for CUSE-based character devices. This may disable features and components.')
+
+option('with-raid5', type: 'boolean', value: false,
+	description: 'Build with bdev_raid module RAID5 support.')
+option('without-raid5', type: 'boolean', value: false,
+	description: 'Do not build with bdev_raid module RAID5 support.')
+
+option('with-idxd', type: 'boolean', value: false,
+	description: 'Build the IDXD library and accel framework plug-in module. Disabled while experimental. Only built for x86 when enabled.')
+option('without-idxd', type: 'boolean', value: false,
+	description: 'Do not build the IDXD library and accel framework plug-in module. This may disable features and components.')

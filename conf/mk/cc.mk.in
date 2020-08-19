@@ -1,0 +1,20 @@
+DEFAULT_CC=@CC@
+ifeq ($(origin CC),default)
+CC=@CC@
+endif
+
+DEFAULT_CXX=@CXX@
+ifeq ($(origin CXX),default)
+CXX=@CXX@
+endif
+
+DEFAULT_LD=@LD@
+ifeq ($(origin LD),default)
+LD=@LD@
+endif
+
+CCAR=@CCAR@
+CC_TYPE=@CC_TYPE@
+LD_TYPE=@LD_TYPE@
+
+CROSS_PREFIX=@CROSS_PREFIX@
