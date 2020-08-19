@@ -60,7 +60,7 @@ ftl_addr2str(struct ftl_addr addr, char *buf, size_t size)
 bool ftl_band_validate_md(struct ftl_band *band);
 void ftl_dev_dump_bands(struct spdk_ftl_dev *dev);
 #else
-#define ftl_band_validate_md(band)
+#define ftl_band_validate_md(band)	(true)
 #define ftl_dev_dump_bands(dev)
 #endif
 
