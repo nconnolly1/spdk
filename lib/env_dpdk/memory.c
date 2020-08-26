@@ -48,7 +48,7 @@
 #include "spdk/memory.h"
 #include "spdk/env_dpdk.h"
 
-#ifdef __FreeBSD__
+#ifndef __linux__
 #define VFIO_ENABLED 0
 #else
 #include <linux/version.h>
