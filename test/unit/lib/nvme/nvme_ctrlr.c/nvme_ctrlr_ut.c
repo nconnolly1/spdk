@@ -47,6 +47,15 @@ struct spdk_log_flag SPDK_LOG_NVME = {
 #include "nvme/nvme_ctrlr.c"
 #include "nvme/nvme_quirks.c"
 
+DEFINE_STUB(nvme_io_msg_process, int, (struct spdk_nvme_ctrlr *ctrlr), 0);
+DEFINE_STUB(nvme_transport_ctrlr_reserve_cmb, int, (struct spdk_nvme_ctrlr *ctrlr), 0);
+DEFINE_STUB(spdk_nvme_ctrlr_cmd_security_receive, int, (struct spdk_nvme_ctrlr *ctrlr,
+		uint8_t secp, uint16_t spsp, uint8_t nssf, void *payload,
+		uint32_t payload_size, spdk_nvme_cmd_cb cb_fn, void *cb_arg), 0);
+DEFINE_STUB(spdk_nvme_ctrlr_cmd_security_send, int, (struct spdk_nvme_ctrlr *ctrlr,
+		uint8_t secp, uint16_t spsp, uint8_t nssf, void *payload,
+		uint32_t payload_size, spdk_nvme_cmd_cb cb_fn, void *cb_arg), 0);
+
 pid_t g_spdk_nvme_pid;
 
 struct nvme_driver _g_nvme_driver = {

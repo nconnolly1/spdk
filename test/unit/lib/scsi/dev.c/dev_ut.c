@@ -43,6 +43,8 @@
 
 #include "spdk_internal/mock.h"
 
+DEFINE_STUB(spdk_scsi_lun_is_removing, bool, (const struct spdk_scsi_lun *lun), false);
+
 /* Unit test bdev mockup */
 struct spdk_bdev {
 	char name[100];

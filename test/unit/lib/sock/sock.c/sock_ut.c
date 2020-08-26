@@ -41,6 +41,22 @@
 #include "sock/sock.c"
 #include "sock/posix/posix.c"
 
+#include "spdk_internal/mock.h"
+
+DEFINE_STUB(spdk_json_write_array_begin, int, (struct spdk_json_write_ctx *w), 0);
+DEFINE_STUB(spdk_json_write_object_begin, int, (struct spdk_json_write_ctx *w), 0);
+DEFINE_STUB(spdk_json_write_named_string, int, (struct spdk_json_write_ctx *w, const char *name,
+		const char *val), 0);
+DEFINE_STUB(spdk_json_write_named_object_begin, int, (struct spdk_json_write_ctx *w,
+		const char *name), 0);
+DEFINE_STUB(spdk_json_write_named_uint32, int, (struct spdk_json_write_ctx *w, const char *name,
+		uint32_t val), 0);
+DEFINE_STUB(spdk_json_write_named_bool, int, (struct spdk_json_write_ctx *w, const char *name,
+		bool val), 0);
+DEFINE_STUB(spdk_json_write_object_end, int, (struct spdk_json_write_ctx *w), 0);
+DEFINE_STUB(spdk_json_write_array_end, int, (struct spdk_json_write_ctx *w), 0);
+
+
 #define UT_IP	"test_ip"
 #define UT_PORT	1234
 

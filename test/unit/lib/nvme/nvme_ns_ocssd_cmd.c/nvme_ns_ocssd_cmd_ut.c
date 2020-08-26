@@ -39,6 +39,15 @@
 
 #include "common/lib/test_env.c"
 
+DEFINE_STUB_V(nvme_io_msg_ctrlr_detach, (struct spdk_nvme_ctrlr *ctrlr));
+DEFINE_STUB(spdk_nvme_qpair_process_completions, int32_t, (struct spdk_nvme_qpair *qpair,
+		uint32_t max_completions), 0);
+DEFINE_STUB(nvme_uevent_connect, int, (void), 1);
+DEFINE_STUB(nvme_transport_ctrlr_destruct, int, (struct spdk_nvme_ctrlr *ctrlr), 0);
+DEFINE_STUB(nvme_ctrlr_get_current_process, struct spdk_nvme_ctrlr_process *,
+	    (struct spdk_nvme_ctrlr *ctrlr), (struct spdk_nvme_ctrlr_process *)(uintptr_t)0x1);
+DEFINE_STUB_V(nvme_ctrlr_fail, (struct spdk_nvme_ctrlr *ctrlr, bool hotremove));
+
 #define OCSSD_SECTOR_SIZE 0x1000
 
 static struct nvme_driver _g_nvme_driver = {

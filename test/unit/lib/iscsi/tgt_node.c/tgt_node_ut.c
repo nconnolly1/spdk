@@ -77,6 +77,8 @@ DEFINE_STUB(iscsi_portal_grp_find_by_tag,
 DEFINE_STUB(iscsi_init_grp_find_by_tag, struct spdk_iscsi_init_grp *,
 	    (int tag), NULL);
 
+DEFINE_STUB_V(iscsi_op_abort_task_set, (struct spdk_iscsi_task *task, uint8_t function));
+
 struct spdk_scsi_lun *
 spdk_scsi_dev_get_lun(struct spdk_scsi_dev *dev, int lun_id)
 {

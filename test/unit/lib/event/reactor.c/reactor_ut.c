@@ -37,6 +37,9 @@
 #include "common/lib/test_env.c"
 #include "event/reactor.c"
 
+DEFINE_STUB(spdk_env_thread_launch_pinned, int, (uint32_t core, thread_start_fn fn, void *arg), 0);
+DEFINE_STUB_V(spdk_env_thread_wait_all, (void));
+
 static void
 test_create_reactor(void)
 {

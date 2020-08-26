@@ -53,6 +53,25 @@ DEFINE_STUB(spdk_nvmf_transport_stop_listen,
 	    (struct spdk_nvmf_transport *transport,
 	     const struct spdk_nvme_transport_id *trid), 0);
 
+DEFINE_STUB(spdk_bdev_get_md_size, uint32_t,
+	    (const struct spdk_bdev *bdev), 0);
+
+DEFINE_STUB(spdk_bdev_is_md_interleaved, bool,
+	    (const struct spdk_bdev *bdev), false);
+
+DEFINE_STUB(spdk_bdev_open_ext, int, (const char *bdev_name, bool write,
+		spdk_bdev_event_cb_t event_cb, void *event_ctx, struct spdk_bdev_desc **desc), 0);
+
+DEFINE_STUB(spdk_bdev_module_claim_bdev, int, (struct spdk_bdev *bdev, struct spdk_bdev_desc *desc,
+		struct spdk_bdev_module *module), 0);
+
+DEFINE_STUB(spdk_nvme_transport_id_trtype_str, const char *, (enum spdk_nvme_transport_type trtype), NULL);
+
+DEFINE_STUB_V(nvmf_ctrlr_reservation_notice_log, (struct spdk_nvmf_ctrlr *ctrlr,
+		struct spdk_nvmf_ns *ns, enum spdk_nvme_reservation_notification_log_page_type type));
+
+DEFINE_STUB(spdk_nvmf_request_complete, int, (struct spdk_nvmf_request *req), -1);
+
 int
 spdk_bdev_open(struct spdk_bdev *bdev, bool write, spdk_bdev_remove_cb_t remove_cb,
 	       void *remove_ctx, struct spdk_bdev_desc **desc)

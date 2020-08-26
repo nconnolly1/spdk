@@ -52,6 +52,18 @@ DEFINE_STUB_V(spdk_rpc_set_state, (uint32_t state));
 DEFINE_STUB(spdk_rpc_get_state, uint32_t, (void), SPDK_RPC_RUNTIME);
 DEFINE_STUB_V(spdk_app_json_config_load, (const char *json_config_file, const char *rpc_addr,
 		spdk_subsystem_init_fn cb_fn, void *cb_arg, bool stop_on_error));
+DEFINE_STUB_V(spdk_subsystem_config, (FILE *fp));
+DEFINE_STUB(spdk_app_get_core_mask, struct spdk_cpuset *, (void), NULL);
+DEFINE_STUB(spdk_reactors_init, int, (void), 0);
+DEFINE_STUB_V(spdk_reactors_start, (void));
+DEFINE_STUB_V(spdk_env_opts_init, (struct spdk_env_opts *opts));
+DEFINE_STUB_V(spdk_rpc_initialize, (const char *listen_addr));
+DEFINE_STUB_V(spdk_reactors_fini, (void));
+DEFINE_STUB_V(spdk_env_fini, (void));
+DEFINE_STUB_V(spdk_rpc_finish, (void));
+DEFINE_STUB_V(spdk_reactors_stop, (void *arg1));
+DEFINE_STUB_V(spdk_subsystem_fini, (spdk_msg_fn cb_fn, void *cb_arg));
+DEFINE_STUB(spdk_env_init, int, (const struct spdk_env_opts *opts), 0);
 
 static void
 unittest_usage(void)

@@ -36,6 +36,19 @@
 
 #include "nvme/nvme_ctrlr_cmd.c"
 
+#include "spdk_internal/mock.h"
+
+struct spdk_nvmf_request;
+struct spdk_nvmf_transport;
+
+DEFINE_STUB(nvme_transport_qpair_iterate_requests, int, (struct spdk_nvme_qpair *qpair,
+	int (*iter_fn)(struct nvme_request *req, void *arg), void *arg), 0);
+DEFINE_STUB(nvme_qpair_abort_queued_reqs, uint32_t, (struct spdk_nvme_qpair *qpair, void *cmd_cb_arg), 0);
+DEFINE_STUB(nvmf_transport_find_listener, struct spdk_nvmf_listener *,
+	(struct spdk_nvmf_transport *transport,	const struct spdk_nvme_transport_id *trid), NULL);
+DEFINE_STUB(spdk_nvme_transport_id_trtype_str, const char *, (enum spdk_nvme_transport_type trtype), NULL);
+DEFINE_STUB(spdk_nvmf_request_complete, int, (struct spdk_nvmf_request *req), -1);
+
 #define CTRLR_CDATA_ELPE   5
 
 pid_t g_spdk_nvme_pid;
