@@ -129,9 +129,16 @@ define dpdk_lib_list_to_libs
 $(1:%=$(DPDK_ABS_DIR)/lib/lib%$(DPDK_LIB_EXT))
 endef
 
+## HACK - remove unsupported --whole-archive flags
+ifneq ($(OS),Windows)
 define dpdk_env_linker_args
 $(ENV_DPDK_FILE) -Wl,--whole-archive,--no-as-needed $(call dpdk_lib_list_to_libs,$1) -Wl,--no-whole-archive
 endef
+else
+define dpdk_env_linker_args
+$(ENV_DPDK_FILE) $(call dpdk_lib_list_to_libs,$1)
+endef
+endif
 
 DPDK_LIB = $(call dpdk_lib_list_to_libs,$(DPDK_LIB_LIST))
 
@@ -144,7 +151,12 @@ else
 ENV_DPDK_FILE = $(call spdk_lib_list_to_static_libs,env_dpdk)
 endif
 ENV_LIBS = $(ENV_DPDK_FILE) $(DPDK_LIB)
+ifneq ($(OS),Windows)
+## HACK - check which compiler/architecture supports rpath-link
 ENV_LINKER_ARGS = -Wl,-rpath-link $(DPDK_ABS_DIR)/lib
+else
+ENV_LINKER_ARGS = -L$(DPDK_ABS_DIR)/lib
+endif
 ENV_LINKER_ARGS += $(call dpdk_env_linker_args,$(DPDK_LIB_LIST))
 
 ifeq ($(CONFIG_IPSEC_MB),y)

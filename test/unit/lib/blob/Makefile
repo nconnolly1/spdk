@@ -34,7 +34,12 @@
 SPDK_ROOT_DIR := $(abspath $(CURDIR)/../../../..)
 include $(SPDK_ROOT_DIR)/mk/spdk.common.mk
 
+ifneq ($(OS),Windows)
 CUNIT_VERSION = $(shell echo "\#include <CUnit/CUnit.h>" | $(CC) -E -dM - | sed -n -e 's/.*VERSION "\([0-9\.\-]*\).*/\1/p')
+else
+CUNIT_VERSION = $(shell echo "#include <CUnit/CUnit.h>" | $(CC) -I$(SPDK_ROOT_DIR)/../CUnit/include -E -dM - 2>&1 | sed -n -e 's/.*VERSION "\([0-9\.\-]*\).*/\1/p')
+endif
+
 ifeq ($(CUNIT_VERSION),2.1-3)
 DIRS-y = blob.c
 else

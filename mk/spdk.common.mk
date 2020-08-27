@@ -69,6 +69,9 @@ endif
 ifneq ($(filter freebsd%,$(TARGET_TRIPLET_WORDS)),)
 OS = FreeBSD
 endif
+ifneq ($(filter windows%,$(TARGET_TRIPLET_WORDS)),)
+OS = Windows
+endif
 
 TARGET_ARCHITECTURE ?= $(CONFIG_ARCH)
 TARGET_MACHINE := $(firstword $(TARGET_TRIPLET_WORDS))
@@ -107,12 +110,20 @@ COMMON_CFLAGS += -fprofile-use=$(SPDK_ROOT_DIR)/build/pgo
 LDFLAGS += -fprofile-use=$(SPDK_ROOT_DIR)/build/pgo
 endif
 
+## HACK to reduce build noise
+ifneq ($(OS),Windows)
 COMMON_CFLAGS += -Wformat -Wformat-security
+else
+COMMON_CFLAGS += -Wno-format -Wno-format-security -Wno-microsoft-enum-forward-reference
+endif
 
 COMMON_CFLAGS += -D_GNU_SOURCE
 
 # Always build PIC code so that objects can be used in shared libs and position-independent executables
+ifneq ($(OS),Windows)
+## HACK - select based on compiler and architecture
 COMMON_CFLAGS += -fPIC
+endif
 
 # Enable stack buffer overflow checking
 COMMON_CFLAGS += -fstack-protector
@@ -122,11 +133,15 @@ COMMON_CFLAGS += -fno-common
 
 # Enable full RELRO - no lazy relocation (resolve everything at load time).
 # This allows the GOT to be made read-only early in the loading process.
+ifneq ($(OS),Windows)
 LDFLAGS += -Wl,-z,relro,-z,now
+endif
 
 # Make the stack non-executable.
 # This is the default in most environments, but it doesn't hurt to set it explicitly.
+ifneq ($(OS),Windows)
 LDFLAGS += -Wl,-z,noexecstack
+endif
 
 # Specify the linker to use
 ifneq ($(LD_TYPE),)
@@ -225,8 +240,11 @@ ifneq (, $(SPDK_GIT_COMMIT))
 COMMON_CFLAGS += -DSPDK_GIT_COMMIT=$(SPDK_GIT_COMMIT)
 endif
 
+ifneq ($(OS),Windows)
+## HACK - compiler dependent?
 COMMON_CFLAGS += -pthread
 LDFLAGS += -pthread
+endif
 
 CFLAGS   += $(COMMON_CFLAGS) -Wno-pointer-sign -Wstrict-prototypes -Wold-style-definition -std=gnu99
 CXXFLAGS += $(COMMON_CFLAGS)
@@ -234,6 +252,10 @@ CXXFLAGS += $(COMMON_CFLAGS)
 SYS_LIBS += -lrt
 SYS_LIBS += -luuid
 SYS_LIBS += -lcrypto
+
+ifeq ($(OS),Windows)
+SYS_LIBS += -lwpdk -ldbghelp -lkernel32 -lmincore -lsetupapi
+endif
 
 ifneq ($(CONFIG_NVME_CUSE)$(CONFIG_FUSE),nn)
 SYS_LIBS += -lfuse3
@@ -269,6 +291,7 @@ LINK_CXX=\
 	$(CXX) -o $@ $(CPPFLAGS) $(LDFLAGS) $(OBJS) $(LIBS) $(ENV_LINKER_ARGS) $(SYS_LIBS)
 
 # Provide function to ease build of a shared lib
+ifneq ($(OS),Windows)
 define spdk_build_realname_shared_lib
 	$(CC) -o $@ -shared $(CPPFLAGS) $(LDFLAGS) \
 	    -Wl,-rpath=$(DESTDIR)/$(libdir) \
@@ -277,6 +300,17 @@ define spdk_build_realname_shared_lib
 	    -Wl,--version-script=$(2) \
 	    $(3)
 endef
+else
+## HACK - remove unsupported whole-archive flags
+define spdk_build_realname_shared_lib
+	$(CC) -o $@ -shared $(CPPFLAGS) $(LDFLAGS) \
+	    -Wl,-rpath=$(DESTDIR)/$(libdir) \
+	    -Wl,--soname,$(notdir $@) \
+	    $(1) \
+	    -Wl,--version-script=$(2) \
+	    $(3)
+endef
+endif
 
 BUILD_LINKERNAME_LIB=\
 	ln -sf $(notdir $<) $@
@@ -377,9 +411,15 @@ UNINSTALL_HEADER=\
 
 %.d: ;
 
+ifneq ($(OS),Windows)
 define spdk_lib_list_to_static_libs
 $(1:%=$(SPDK_ROOT_DIR)/build/lib/libspdk_%.a)
 endef
+else
+define spdk_lib_list_to_static_libs
+$(1:%=$(SPDK_ROOT_DIR)/build/lib/libspdk_%.a)
+endef
+endif
 
 define spdk_lib_list_to_shared_libs
 $(1:%=$(SPDK_ROOT_DIR)/build/lib/libspdk_%.so)

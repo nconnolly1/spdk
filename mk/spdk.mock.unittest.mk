@@ -30,6 +30,8 @@
 #  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
+ifneq ($(OS),Windows)
+## HACK - base on compiler --wrap is not supported by clang
 LDFLAGS += \
 	-Wl,--wrap,calloc \
 	-Wl,--wrap,pthread_mutexattr_init \
@@ -37,3 +39,4 @@ LDFLAGS += \
 	-Wl,--wrap,recvmsg \
 	-Wl,--wrap,sendmsg \
 	-Wl,--wrap,writev
+endif
