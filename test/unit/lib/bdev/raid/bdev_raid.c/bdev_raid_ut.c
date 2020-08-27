@@ -913,7 +913,7 @@ verify_raid_config(struct rpc_bdev_raid_create *r, bool presence)
 }
 
 static void
-verify_raid_bdev(struct rpc_bdev_raid_create *r, bool presence, uint32_t raid_state)
+verify_raid_bdev(struct rpc_bdev_raid_create *r, bool presence, enum raid_bdev_state raid_state)
 {
 	struct raid_bdev *pbdev;
 	struct raid_base_bdev_info *base_info;
