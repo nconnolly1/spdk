@@ -1103,7 +1103,7 @@ static struct spdk_sock_group_impl *
 posix_sock_group_impl_create(void)
 {
 	struct spdk_posix_sock_group_impl *group_impl;
-	int fd;
+	int fd = -1;
 
 #if defined(__linux__)
 	fd = epoll_create1(0);
@@ -1132,7 +1132,7 @@ posix_sock_group_impl_add_sock(struct spdk_sock_group_impl *_group, struct spdk_
 {
 	struct spdk_posix_sock_group_impl *group = __posix_group_impl(_group);
 	struct spdk_posix_sock *sock = __posix_sock(_sock);
-	int rc;
+	int rc = -1;
 
 #if defined(__linux__)
 	struct epoll_event event;
@@ -1168,7 +1168,7 @@ posix_sock_group_impl_remove_sock(struct spdk_sock_group_impl *_group, struct sp
 {
 	struct spdk_posix_sock_group_impl *group = __posix_group_impl(_group);
 	struct spdk_posix_sock *sock = __posix_sock(_sock);
-	int rc;
+	int rc = -1;
 
 	if (sock->recv_pipe != NULL) {
 		if (spdk_pipe_reader_bytes_available(sock->recv_pipe) > 0) {
@@ -1207,7 +1207,7 @@ posix_sock_group_impl_poll(struct spdk_sock_group_impl *_group, int max_events,
 {
 	struct spdk_posix_sock_group_impl *group = __posix_group_impl(_group);
 	struct spdk_sock *sock, *tmp;
-	int num_events, i, rc;
+	int num_events = -1, i, rc;
 	struct spdk_posix_sock *psock, *ptmp;
 #if defined(__linux__)
 	struct epoll_event events[MAX_EVENTS_PER_POLL];
