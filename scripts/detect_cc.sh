@@ -106,6 +106,10 @@ case "$LD_TYPE" in
 esac
 
 CCAR="ar"
+if [ "$CC_TYPE" = "clang" -a "$OS" != "Linux" -a "$OS" != "FreeBSD" ]; then
+	CCAR=llvm-ar
+fi
+
 if [ "$LTO" = "y" ]; then
 	if [ "$CC_TYPE" = "clang" ]; then
 		if [ "$LD_TYPE" != "gold" ]; then
