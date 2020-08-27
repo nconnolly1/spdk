@@ -8,10 +8,13 @@
 *.ko
 *.log
 *.o
+*.obj
 *.pyc
 *.so
 *.so.*
 *.swp
+*.tmp
+*.exe
 *.DS_Store
 build/
 ut_coverage/
