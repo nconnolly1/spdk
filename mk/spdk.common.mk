@@ -204,6 +204,10 @@ endif
 
 ifeq ($(CONFIG_DEBUG), y)
 COMMON_CFLAGS += -DDEBUG -O0 -fno-omit-frame-pointer
+ifeq ($(OS),Windows)
+## HACK - compiler dependent?
+LDFLAGS += -g
+endif
 else
 COMMON_CFLAGS += -DNDEBUG -O2
 # Enable _FORTIFY_SOURCE checks - these only work when optimizations are enabled.
