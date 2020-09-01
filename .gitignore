@@ -15,6 +15,7 @@
 *.swp
 *.tmp
 *.exe
+*.pdb
 *.DS_Store
 build/
 ut_coverage/
