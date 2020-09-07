@@ -45,11 +45,10 @@ SPDK_LIB_LINKER_ARGS = \
 	$(SPDK_LIB_LIST:%=-lspdk_%) \
 	-Wl,--no-whole-archive
 else
-## HACK - remove unsupported whole-archive flags
 SPDK_LIB_LINKER_ARGS = \
 	-L$(SPDK_ROOT_DIR)/build/lib \
-	$(SPDK_LIB_FILES)
-##	$(SPDK_LIB_LIST:%=-lspdk_%)
+	$(SPDK_LIB_LIST:%=-Wl,-wholearchive:libspdk_%.a) -v \
+	$(SPDK_ROOT_DIR)/../dpdk/build/lib/mempool_ring_rte_mempool_ring.c.obj
 endif
 
 # This is primarily used for unit tests to ensure they link when shared library

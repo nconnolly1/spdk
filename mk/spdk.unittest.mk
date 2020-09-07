@@ -62,8 +62,13 @@ LIBS += -lcunit $(SPDK_STATIC_LIB_LINKER_ARGS)
 
 APP = $(TEST_FILE:.c=)$(APP_EXT)
 
+ifeq ($(OS),Windows)
+## HACK to always true
+UNIT_TEST_LINK_ENV = 1
+endif
+
 ifneq ($(UNIT_TEST_LINK_ENV),1)
-ENV_LINKER_ARGS =
+ENV_LINKER_ARGS = 
 else
 # Rewrite the env linker args to be static.
 ENV_DPDK_FILE = $(call spdk_lib_list_to_static_libs,env_dpdk)
