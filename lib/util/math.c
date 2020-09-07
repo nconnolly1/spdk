@@ -65,5 +65,5 @@ spdk_u64log2(uint64_t x)
 		/* log(0) is undefined */
 		return 0;
 	}
-	return 63u - __builtin_clzl(x);
+	return 63u - __builtin_clzll(x);
 }

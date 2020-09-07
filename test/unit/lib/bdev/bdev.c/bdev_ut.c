@@ -407,6 +407,8 @@ allocate_bdev(char *name)
 	bdev->blockcnt = 1024;
 	bdev->blocklen = 512;
 
+	SPDK_CU_ASSERT_FATAL(pthread_mutex_init(&bdev->internal.mutex, NULL) == 0);
+
 	rc = spdk_bdev_register(bdev);
 	CU_ASSERT(rc == 0);
 
@@ -425,6 +427,8 @@ allocate_vbdev(char *name)
 	bdev->name = name;
 	bdev->fn_table = &fn_table;
 	bdev->module = &vbdev_ut_if;
+
+	SPDK_CU_ASSERT_FATAL(pthread_mutex_init(&bdev->internal.mutex, NULL) == 0);
 
 	rc = spdk_bdev_register(bdev);
 	CU_ASSERT(rc == 0);
@@ -654,6 +658,9 @@ bytes_to_blocks_test(void)
 
 	memset(&bdev, 0, sizeof(bdev));
 
+	/* Mutex initialized */
+	CU_ASSERT(pthread_mutex_init(&bdev.internal.mutex, NULL) == 0);
+
 	bdev.blocklen = 512;
 
 	/* All parameters valid */
@@ -691,6 +698,10 @@ num_blocks_test(void)
 	int rc;
 
 	memset(&bdev, 0, sizeof(bdev));
+
+	/* Mutex initialized */
+	CU_ASSERT(pthread_mutex_init(&bdev.internal.mutex, NULL) == 0);
+
 	bdev.name = "num_blocks";
 	bdev.fn_table = &fn_table;
 	bdev.module = &bdev_ut_if;
@@ -744,6 +755,9 @@ io_valid_test(void)
 	struct spdk_bdev bdev;
 
 	memset(&bdev, 0, sizeof(bdev));
+
+	/* Mutex initialized */
+	CU_ASSERT(pthread_mutex_init(&bdev.internal.mutex, NULL) == 0);
 
 	bdev.blocklen = 512;
 	spdk_bdev_notify_blockcnt_change(&bdev, 100);
@@ -1016,6 +1030,9 @@ bdev_io_spans_boundary_test(void)
 
 	memset(&bdev, 0, sizeof(bdev));
 
+	/* Mutex initialized */
+	CU_ASSERT(pthread_mutex_init(&bdev.internal.mutex, NULL) == 0);
+	
 	bdev.optimal_io_boundary = 0;
 	bdev_io.bdev = &bdev;
 

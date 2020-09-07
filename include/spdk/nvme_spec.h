@@ -712,10 +712,12 @@ union spdk_nvme_feat_async_event_configuration {
 	uint32_t raw;
 	struct {
 		union spdk_nvme_critical_warning_state crit_warn;
-		uint32_t ns_attr_notice		: 1;
-		uint32_t fw_activation_notice	: 1;
-		uint32_t telemetry_log_notice	: 1;
-		uint32_t reserved		: 21;
+		uint8_t ns_attr_notice		: 1;
+		uint8_t fw_activation_notice	: 1;
+		uint8_t telemetry_log_notice	: 1;
+		uint8_t reserved		: 5;
+		uint8_t reserved2;
+		uint8_t reserved3;
 	} bits;
 };
 SPDK_STATIC_ASSERT(sizeof(union spdk_nvme_feat_async_event_configuration) == 4, "Incorrect size");
