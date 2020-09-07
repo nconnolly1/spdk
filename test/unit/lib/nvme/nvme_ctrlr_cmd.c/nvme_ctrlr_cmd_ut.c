@@ -357,7 +357,7 @@ nvme_ctrlr_submit_admin_request(struct spdk_nvme_ctrlr *ctrlr, struct nvme_reque
 }
 
 #define DECLARE_AND_CONSTRUCT_CTRLR()	\
-	struct spdk_nvme_ctrlr	ctrlr = {};	\
+	struct spdk_nvme_ctrlr	ctrlr = { .ctrlr_lock = PTHREAD_MUTEX_INITIALIZER };	\
 	struct spdk_nvme_qpair	adminq = {};	\
 	struct nvme_request	req;		\
 						\

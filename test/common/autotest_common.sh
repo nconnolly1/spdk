@@ -207,7 +207,11 @@ elif [ "$(uname -s)" = "FreeBSD" ]; then
 	export HUGEMEM=2048
 else
 	echo "Unknown OS \"$(uname -s)\""
-	exit 1
+	MAKE="make"
+	MAKEFLAGS=${MAKEFLAGS:--j$(nproc)}
+	# FreeBSD runs a much more limited set of tests, so keep the default 2GB.
+	export HUGEMEM=2048
+#	exit 1
 fi
 
 if [ -z "$output_dir" ]; then

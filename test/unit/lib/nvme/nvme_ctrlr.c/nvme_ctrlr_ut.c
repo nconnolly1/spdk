@@ -1445,7 +1445,9 @@ int nvme_transport_ctrlr_connect_qpair(struct spdk_nvme_ctrlr *ctrlr, struct spd
 static void
 test_spdk_nvme_ctrlr_reconnect_io_qpair(void)
 {
-	struct spdk_nvme_ctrlr	ctrlr = {};
+	struct spdk_nvme_ctrlr	ctrlr = {
+		.ctrlr_lock = PTHREAD_MUTEX_INITIALIZER
+	};
 	struct spdk_nvme_qpair	qpair = {};
 	int rc;
 
@@ -1694,7 +1696,9 @@ test_nvme_ctrlr_alloc_cmb(void)
 static void
 test_spdk_nvme_ctrlr_update_firmware(void)
 {
-	struct spdk_nvme_ctrlr ctrlr = {};
+	struct spdk_nvme_ctrlr ctrlr = {
+		.ctrlr_lock = PTHREAD_MUTEX_INITIALIZER
+	};
 	void *payload = NULL;
 	int point_payload = 1;
 	int slot = 0;
@@ -1942,7 +1946,9 @@ test_nvme_ctrlr_init_delay(void)
 static void
 test_spdk_nvme_ctrlr_set_trid(void)
 {
-	struct spdk_nvme_ctrlr	ctrlr = {0};
+	struct spdk_nvme_ctrlr	ctrlr = {
+		.ctrlr_lock = PTHREAD_MUTEX_INITIALIZER
+	};
 	struct spdk_nvme_transport_id	new_trid = {{0}};
 
 	ctrlr.is_failed = false;

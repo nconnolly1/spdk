@@ -52,7 +52,8 @@ class JSONRPCClient(object):
     def __exit__(self, exception_type, exception_value, traceback):
         self.close()
 
-    def _connect(self, addr, port):
+    def _connect(self, xaddr, port):
+        addr = '/mnt/c/tools/msys64' + xaddr
         try:
             if os.path.exists(addr):
                 self._logger.debug("Trying to connect to UNIX socket: %s", addr)
