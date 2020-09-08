@@ -20,6 +20,7 @@
 build/
 ut_coverage/
 tags
+data
 cscope.out
 dpdk-*
 CUnit-Memory-Dump.xml
