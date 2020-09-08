@@ -51,6 +51,10 @@ DIRS-$(CONFIG_VIRTIO) += virtio
 DIRS-$(CONFIG_PMDK) += pmem
 endif
 
+ifeq ($(OS),Windows)
+DIRS-y += aio
+endif
+
 DIRS-$(CONFIG_RBD) += rbd
 
 .PHONY: all clean $(DIRS-y)

@@ -72,6 +72,10 @@ SYS_LIBS += -L/usr/lib64/iscsi -liscsi
 endif
 endif
 
+ifeq ($(OS),Windows)
+BLOCKDEV_MODULES_LIST += bdev_aio
+endif
+
 ifeq ($(CONFIG_URING),y)
 BLOCKDEV_MODULES_LIST += bdev_uring
 SYS_LIBS += -luring

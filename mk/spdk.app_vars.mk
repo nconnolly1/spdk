@@ -47,7 +47,7 @@ SPDK_LIB_LINKER_ARGS = \
 else
 SPDK_LIB_LINKER_ARGS = \
 	-L$(SPDK_ROOT_DIR)/build/lib \
-	$(SPDK_LIB_LIST:%=-Wl,-wholearchive:libspdk_%.a) -v \
+	$(SPDK_LIB_LIST:%=-Wl,-wholearchive:libspdk_%.a) \
 	$(SPDK_ROOT_DIR)/../dpdk/build/lib/mempool_ring_rte_mempool_ring.c.obj
 endif
 
