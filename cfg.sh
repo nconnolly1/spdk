@@ -7,9 +7,9 @@ CC=clang
 CXX=clang
 LD=lld-link
 CCAR=lld-link
-CFLAGS='-I$(SPDK_ROOT_DIR)/../CUnit/include -I$(SPDK_ROOT_DIR)/../wpdk/include'
-CXXFLAGS='-I$(SPDK_ROOT_DIR)/../CUnit/include -I$(SPDK_ROOT_DIR)/../wpdk/include'
-LDFLAGS='-L$(SPDK_ROOT_DIR)/../CUnit/lib -L$(SPDK_ROOT_DIR)/../wpdk/lib'
+CFLAGS='-I$(SPDK_ROOT_DIR)/../CUnit/include -I$(SPDK_ROOT_DIR)/../wpdk/build/include'
+CXXFLAGS='-I$(SPDK_ROOT_DIR)/../CUnit/include -I$(SPDK_ROOT_DIR)/../wpdk/build/include'
+LDFLAGS='-L$(SPDK_ROOT_DIR)/../CUnit/lib -L$(SPDK_ROOT_DIR)/../wpdk/build/lib'
 export CC CXX CFLAGS CXXFLAGS LD LDFLAGS CCAR
 
 ./configure --with-dpdk=C:/Users/Nick/Repos/dpdk/build --enable-debug --without-isal --without-vhost  --without-virtio
