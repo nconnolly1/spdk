@@ -306,9 +306,8 @@ test_strtol(void)
 	CU_ASSERT(val == 0);
 
 	/* Invalid base */
-//HACK
-//	val = spdk_strtol(val10, 1);
-//	CU_ASSERT(val == -EINVAL);
+	val = spdk_strtol(val10, 1);
+	CU_ASSERT(val == -EINVAL);
 
 	val = spdk_strtol(val11, 10);
 	CU_ASSERT(val == 0);
@@ -372,9 +371,8 @@ test_strtoll(void)
 	CU_ASSERT(val == 0);
 
 	/* Invalid base */
-//HACK
-//	val = spdk_strtoll(val10, 1);
-//	CU_ASSERT(val == -EINVAL);
+	val = spdk_strtoll(val10, 1);
+	CU_ASSERT(val == -EINVAL);
 
 	val = spdk_strtoll(val11, 10);
 	CU_ASSERT(val == 0);
