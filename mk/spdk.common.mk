@@ -258,7 +258,7 @@ SYS_LIBS += -luuid
 SYS_LIBS += -lcrypto
 
 ifeq ($(OS),Windows)
-SYS_LIBS += -lwpdk -ldbghelp -lkernel32 -lmincore -lsetupapi
+SYS_LIBS += $(CONFIG_DPDK_DIR)/lib/libwpdk.a -ldbghelp -lkernel32 -lmincore -lsetupapi
 endif
 
 ifneq ($(CONFIG_NVME_CUSE)$(CONFIG_FUSE),nn)

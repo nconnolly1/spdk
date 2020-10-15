@@ -922,9 +922,11 @@ vtophys_get_paddr_memseg(uint64_t vaddr)
 
 	seg = rte_mem_virt2memseg((void *)(uintptr_t)vaddr, NULL);
 	if (seg != NULL) {
-		paddr = seg->phys_addr;
+		paddr = seg->iova;
 		if (paddr == RTE_BAD_IOVA) {
-			return SPDK_VTOPHYS_ERROR;
+			// HACK - no vtop
+			paddr = (uintptr_t)seg->addr;
+			// HACK return SPDK_VTOPHYS_ERROR;
 		}
 		paddr += (vaddr - (uintptr_t)seg->addr);
 		return paddr;

@@ -48,7 +48,7 @@ else
 SPDK_LIB_LINKER_ARGS = \
 	-L$(SPDK_ROOT_DIR)/build/lib \
 	$(SPDK_LIB_LIST:%=-Wl,-wholearchive:libspdk_%.a) \
-	$(SPDK_ROOT_DIR)/../dpdk/build/lib/mempool_ring_rte_mempool_ring.c.obj
+	-Wl,-wholearchive:librte_mempool_ring.a
 endif
 
 # This is primarily used for unit tests to ensure they link when shared library
